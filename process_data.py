@@ -49,4 +49,9 @@ index_list = []
 for ad in addr_list:
     # print(ad.Large_Addr, ad.Middle_Addr, ad.Small_Addr)
     if (ad.Large_Addr == '서울'):
-        tmp_list.append(ad)
+        index_list.append(index)
+    index += 1
+
+seoul_data = data.loc[index_list]
+
+print(seoul_data)
