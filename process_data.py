@@ -20,3 +20,4 @@ sample = data.loc[:, '구매액']
 sample = remove_outlier.remove_out(sample)
 
 print(sample)
+#test
