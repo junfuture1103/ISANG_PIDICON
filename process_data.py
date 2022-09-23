@@ -55,3 +55,4 @@ for ad in addr_list:
 seoul_data = data.loc[index_list]
 
 print(seoul_data)
+#print(data['주소'].value_counts())
