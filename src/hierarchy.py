@@ -15,6 +15,13 @@ read_data = pd.read_csv(file_path)
 print(read_data.shape)
 print(read_data)
 
+bday = read_data.loc[:, '생일']
+bday_list = []
+
+for data in bday:
+    tmp = Birthday(int(data.split(' ')[0][:-1]), int(data.split(' ')[1][:-1]))
+    bday_list.append(tmp)
+
 def make_address_hierarchy():
     #column 나누기 loc[행, 열]
     # samples = data.loc[:, '이름' : '성별']
@@ -83,16 +90,6 @@ def make_address_hierarchy():
 
     print('Done Address Process')
 
-read_data = pd.read_csv(file_path)
-
-bday = read_data.loc[:, '생일']
-
-bday_list = []
-
-for data in bday:
-    tmp = Birthday(int(data.split(' ')[0][:-1]), int(data.split(' ')[1][:-1]))
-    bday_list.append(tmp)
-
 def make_birthday_hierarchy():
     MONTH_DAY = bday
     MONTH = []
@@ -119,7 +116,7 @@ def make_birthday_hierarchy():
     
     Address_Hierarchy.to_csv('hierarchys/birthday_hierarchy.csv', header = None, encoding = 'ANSI', index = False)
 
-    print('Done Process')
+    print('Done Birthday Process')
 
 def get_birthday_count():
     tmp_list = []
@@ -135,3 +132,23 @@ def get_birthday_count():
     # 각 월 별 생일인 사람의 데이터가 몇 개인지 count해서 출력
     print(month_count)
 
+def make_age_hierarchy():
+    age = read_data.loc[:, '나이']
+    
+    level1_interval = 5
+    
+    level1_list = []
+    level2_list = []
+    level3_list = []
+    
+    level1 = pd.DataFrame(level1_list)
+    level2 = pd.DataFrame(level2_list)
+    level3 = pd.DataFrame(level3_list)
+
+    Address_Hierarchy = pd.concat([level1, level2, level3], axis = 1)
+    
+    print(Address_Hierarchy)
+    
+    Address_Hierarchy.to_csv('hierarchys/age_hierarchy.csv', header = None, encoding = 'ANSI', index = False)
+
+    print('Done Birthday Process')
