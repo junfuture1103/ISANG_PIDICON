@@ -96,6 +96,7 @@ print(preprocessed_data)
 preprocessed_data.to_csv('preprocessed_data.csv')
 print('Done Process')
 
+
 '''
 
 print(data['주소'].value_counts()) # Large_Addr + Middle_addr + Small_Addr
