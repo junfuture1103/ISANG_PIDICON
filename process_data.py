@@ -32,29 +32,70 @@ print(data)
 
 #column 나누기 loc[행, 열]
 # samples = data.loc[:, '이름' : '성별']
-addr = data.loc[:, '주소']
+address = data.loc[:, '주소']
 
-addr_list = []
+print(address)
 
-for ad in addr:
+addrs_list = []
+addr_dict = {"Big_Address":[], "Middle_Address":[], "Small_Address":[]}
+
+for ad in address:
     # print(ad.split(' ')[0], ad.split(' ')[1],ad.split(' ')[2])
-    tmp = Address(ad.split(' ')[0], ad.split(' ')[1],ad.split(' ')[2])
-    addr_list.append(tmp)
+    addr_dict["Big_Address"].append(ad.split(' ')[0])
+    addr_dict["Middle_Address"].append(ad.split(' ')[1])
+    addr_dict["Small_Address"].append(ad.split(' ')[2])
 
-tmp_list = []
+address_df = pd.DataFrame(addr_dict)
 
-index = 0
-index_list = []
+# 고유한 큰주소들 알아내기
+unique_big_addr = address_df['Big_Address'].unique()
+unique_middle_addr = address_df['Middle_Address'].unique()
+unique_small_addr = address_df['Small_Address'].unique()
 
-for ad in addr_list:
-    # print(ad.Large_Addr, ad.Middle_Addr, ad.Small_Addr)
-    if (ad.Large_Addr == '서울'):
-        index_list.append(index)
-    index += 1
+print(unique_big_addr)
+print(unique_middle_addr)
+print(unique_small_addr)
 
-seoul_data = data.loc[index_list]
+Big_Addresses = address_df['Big_Address']
+Middle_Addresses = address_df[['Big_Address', 'Middle_Address']]
+Small_Addresses = address_df
 
-print(seoul_data)
+Big_Address_count = Big_Addresses.value_counts()
+Middle_Address_count = Middle_Addresses.value_counts()
+Small_Address_count = Small_Addresses.value_counts()
+
+print(Big_Address_count)
+print(Middle_Address_count)
+print(Small_Address_count)
+
+Big_Address_count.to_csv('대주소_count.csv')
+Middle_Address_count.to_csv('대중주소_count.csv')
+Small_Address_count.to_csv('대중소주소_count.csv')
+
+new_address = []
+
+de_identification_level = int(input("대(1) / 대중(2) / 대중소(3) level을 골라주세요 : "))
+
+if(de_identification_level == 1 or de_identification_level == 2):
+    for ad in address:
+        # print(ad.split(' ')[0], ad.split(' ')[1],ad.split(' ')[2])
+        if(de_identification_level == 1):
+            tmp = ad.split(' ')[0]
+        elif(de_identification_level == 2):
+            tmp = ad.split(' ')[0] + ' ' +  ad.split(' ')[1]
+        new_address.append(tmp)
+else:
+    new_address = address
+    
+preprocessed_data = data
+preprocessed_data['주소'] = new_address
+
+print(data)
+print(preprocessed_data)
+
+preprocessed_data.to_csv('preprocessed_data.csv')
+print('Done Process')
+
 '''
 
 print(data['주소'].value_counts()) # Large_Addr + Middle_addr + Small_Addr
