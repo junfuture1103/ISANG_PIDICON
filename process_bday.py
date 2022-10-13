@@ -1,5 +1,4 @@
 import pandas as pd
-import remove_outlier
 
 class Birthday:
     def __init__(self, month, day):
