@@ -14,7 +14,7 @@ data = pd.read_csv(file_path)
 
 def make_statistic_hierarchy(inter_val):
 
-    col = "구매액" # 처리할 열
+    col = "일련번호" # 처리할 열
     interval = inter_val # 평균값 구할 구간
 
     this_data = data[col]

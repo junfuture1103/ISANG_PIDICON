@@ -1,18 +1,19 @@
 from pydoc import describe
 import pandas as pd
 
-file_path = "../datasets/"
-file_name = "isang_test.csv"
+file_path = "./datasets/"
+file_name = "arx1차_PIDICON_2022_utf8.csv"
 
 file_path += file_name
 
-data = pd.read_csv(file_path)
-
+read_data = pd.read_csv(file_path)
+data = read_data[col]
 #data.shape => rows x cols
 print(data.shape)
 print(data)
 
-describe_data = data.describe()
+describe_data = data.describe(percentiles=[.25, .5, .96])
+
 print(describe_data)
 describe_data.to_csv('described_data.csv')
 
